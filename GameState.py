@@ -77,3 +77,14 @@ class GameState:
                 self.player2.life += card.power
             self.player2.mana -= card.cost
             self.player2.handCards.remove(card)
+
+
+    def drawCard(self, playerNumber):
+        if playerNumber == 1 and len(self.player1.waistCards) > 0:
+            cardToDraw = self.player1.waistCards[0]
+            self.player1.handCards.append(cardToDraw)
+            self.player1.waistCards.remove(cardToDraw)
+        if playerNumber == 2 and len(self.player2.waistCards) > 0:
+            cardToDraw = self.player2.waistCards[0]
+            self.player2.handCards.append(cardToDraw)
+            self.player2.waistCards.remove(cardToDraw)

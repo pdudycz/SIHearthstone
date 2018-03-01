@@ -17,7 +17,7 @@ magicCardL = MagicCard("addlife", 1, 1)
 
 initGameState.player1.handCards.append(creatureCard)
 initGameState.player1.handCards.append(magicCardP)
-initGameState.player1.handCards.append(magicCardC)
+initGameState.player1.waistCards.append(magicCardC)
 initGameState.player2.handCards.append(creatureCard2)
 initGameState.player2.handCards.append(magicCardL)
 
@@ -36,6 +36,7 @@ window.printGameState(initGameState)
 initGameState.putCardOnTable(2, 0)
 
 initGameState.attackPlayerCreature(1, 0, 0)
+initGameState.drawCard(1)
 
 window.printGameState(initGameState)
 
