@@ -4,4 +4,3 @@ class Player:
         self.mana = mana
         self.handCards = hCards
         self.waistCards = wCards
-        self.graveyard = grave
