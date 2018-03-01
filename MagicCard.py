@@ -1,0 +1,2 @@
+class MagicCard:
+    type = "spell"
