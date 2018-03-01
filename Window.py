@@ -27,5 +27,5 @@ class Window:
         self.printCards(gameState.player2.handCards)
         print("-" * 30)
         print("Life: " + str(gameState.player2.life) + " Mana: " + str(gameState.player2.mana))
-        print("*" * 30)
+        print("*" * 50)
 

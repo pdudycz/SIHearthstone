@@ -4,8 +4,8 @@ from Card import Card
 from MagicCard import MagicCard
 from Player import Player
 
-p1 = Player(20, 10, [], [], [])
-p2 = Player(20, 10, [], [], [])
+p1 = Player(20, 10, [], [])
+p2 = Player(20, 10, [], [])
 
 initGameState = GameState(p1, p2, [], [])
 
