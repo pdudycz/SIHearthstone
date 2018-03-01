@@ -14,27 +14,66 @@ class GameState:
     def attackPlayerCreature(self, playerNumber, attackingCardArrayIndex, defendingCardArrayIndex):
         if playerNumber == 1:
             attackingCard = self.player1Table[attackingCardArrayIndex]
-            defendingCard = self.player2Table[defendingCardArrayIndex]
-            defendingCard.attack -= attackingCard.attack
-            if defendingCard.attack < 1:
-                self.player2Table.remove(defendingCard)
+            self.makeDamageToCreature(2, attackingCard.attack, defendingCardArrayIndex)
         if playerNumber == 2:
             attackingCard = self.player2Table[attackingCardArrayIndex]
-            defendingCard = self.player1Table[defendingCardArrayIndex]
-            defendingCard.attack -= attackingCard.attack
+            self.makeDamageToCreature(1, attackingCard.attack, defendingCardArrayIndex)
+
+    def makeDamageToCreature(self, attackedPlayerNumber, damages, attackedCreatureIndex):
+        if attackedPlayerNumber == 1:
+            defendingCard = self.player1Table[attackedCreatureIndex]
+            defendingCard.attack -= damages
             if defendingCard.attack < 1:
                 self.player1Table.remove(defendingCard)
+        if attackedPlayerNumber == 2:
+            defendingCard = self.player2Table[attackedCreatureIndex]
+            defendingCard.attack -= damages
+            if defendingCard.attack < 1:
+                self.player2Table.remove(defendingCard)
 
-    def putCardOnTable(self, playerNumber, handCardArrayIndex):
+    def putCardOnTable(self, playerNumber, handCardArrayIndex, creatureArrayIndexForSpell=0):
         if playerNumber == 1:
             handCardToPlay = self.player1.handCards[handCardArrayIndex]
-            if self.player1.mana >= handCardToPlay.cost:
-                self.player1Table.append(handCardToPlay)
-                self.player1.handCards.remove(handCardToPlay)
-                self.player1.mana -= handCardToPlay.cost
+            if handCardToPlay.type == "creature":
+                self.putCreatureCardOnTable(1, handCardToPlay)
+            if handCardToPlay.type == "spell":
+                self.putMagicCardOnTable(1, handCardToPlay, creatureArrayIndexForSpell)
+
         if playerNumber == 2:
             handCardToPlay = self.player2.handCards[handCardArrayIndex]
-            if self.player2.mana >= handCardToPlay.cost:
-                self.player2Table.append(handCardToPlay)
-                self.player2.handCards.remove(handCardToPlay)
-                self.player2.mana -= handCardToPlay.cost
+            if handCardToPlay.type == "creature":
+                self.putCreatureCardOnTable(2, handCardToPlay)
+            if handCardToPlay.type == "spell":
+                self.putMagicCardOnTable(2, handCardToPlay, creatureArrayIndexForSpell)
+
+    def putCreatureCardOnTable(self, playerNumber, card):
+        if playerNumber == 1 and card.cost <= self.player1.mana:
+            self.player1Table.append(card)
+            self.player1.handCards.remove(card)
+            self.player1.mana -= card.cost
+
+        if playerNumber == 2 and card.cost <= self.player2.mana:
+            self.player2Table.append(card)
+            self.player2.handCards.remove(card)
+            self.player2.mana -= card.cost
+
+    def putMagicCardOnTable(self, playerNumber, card, creatureArrayIndex=0):
+        if playerNumber == 1 and card.cost <= self.player1.mana:
+            if card.action == "attackplayer":
+                self.player2.life -= card.power
+            if card.action == "attackcreature":
+                self.makeDamageToCreature(2, card.power, creatureArrayIndex)
+            if card.action == "addlife":
+                self.player1.life += card.power
+            self.player1.mana -= card.cost
+            self.player1.handCards.remove(card)
+
+        if playerNumber == 2 and card.cost <= self.player2.mana:
+            if card.action == "attackplayer":
+                self.player1.life -= card.power
+            if card.action == "attackcreature":
+                self.makeDamageToCreature(1, card.power, creatureArrayIndex)
+            if card.action == "addlife":
+                self.player2.life += card.power
+            self.player2.mana -= card.cost
+            self.player2.handCards.remove(card)

@@ -3,7 +3,7 @@ class Window:
         print("C:" + str(card.attack) + "/" + str(card.defense) + "(" + str(card.cost) + ")")
 
     def printSpell(self, card):
-        print("S:" + card.desc)
+        print("S:" + card.action + "/" + str(card.power) +  "(" + str(card.cost) + ")")
 
     def printCards(self, cardArray):
         for card in cardArray:
@@ -15,7 +15,7 @@ class Window:
 
     def printGameState(self, gameState):
         print()
-        print("*" * 30)
+        print("*" * 50)
         print("Life: " + str(gameState.player1.life) + " Mana: " + str(gameState.player1.mana))
         print("-"*30)
         self.printCards(gameState.player1.handCards)
