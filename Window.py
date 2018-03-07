@@ -3,7 +3,7 @@ class Window:
         print("C:" + str(card.attack) + "/" + str(card.defense) + "(" + str(card.cost) + ")")
 
     def printSpell(self, card):
-        print("S:" + card.action + "/" + str(card.power) +  "(" + str(card.cost) + ")")
+        print("S:" + str(card.action) + "/" + str(card.power) +  "(" + str(card.cost) + ")")
 
     def printCards(self, cardArray):
         for card in cardArray:

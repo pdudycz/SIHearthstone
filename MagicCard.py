@@ -1,3 +1,4 @@
+
 class MagicCard:
     def __init__(self, action, power, cost):
         self.type = "spell"

@@ -88,3 +88,8 @@ class GameState:
             cardToDraw = self.player2.waistCards[0]
             self.player2.handCards.append(cardToDraw)
             self.player2.waistCards.remove(cardToDraw)
+
+    def firstDraw(self):
+        for i in range(3):
+            self.drawCard(1)
+            self.drawCard(2)
