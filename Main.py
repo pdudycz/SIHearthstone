@@ -4,30 +4,42 @@ from Card import Card
 from MagicCard import MagicCard
 from Player import Player
 from DeckGenerator import DeckGenerator
+from GameStateChanger import GameStateChanger
+from HearthstoneSimulator import HearthstoneSimulator
+from RandomPlayer import RandomPlayer
 
-def changePlayerTour(playerTour):
-    if playerTour == 1:
-        return 2
-    else:
-        return 1
-
-deckGenerator = DeckGenerator()
+gameStateChanger = GameStateChanger()
 window = Window()
-p1 = Player(20, 1, [], deckGenerator.getShuffledDeck())
-p2 = Player(20, 1, [], deckGenerator.getShuffledDeck())
 
-initGameState = GameState(p1, p2, [], [])
-initGameState.firstDraw()
-window.printGameState(initGameState)
-whichPlayerTour = 1
+randPlayer = RandomPlayer()
 
-while initGameState.player1.life > 0 and initGameState.player2.life > 0:
-    initGameState.drawCard(whichPlayerTour)
-    if whichPlayerTour == 1:
+first_game_state = gameStateChanger.getInitRandomGameState()
+simulator = HearthstoneSimulator(first_game_state, randPlayer)
+
+simulator.simulate()
 
 
-    if whichPlayerTour == 2:
-    whichPlayerTour = changePlayerTour(whichPlayerTour)
+# deckGenerator = DeckGenerator()
+# window = Window()
+# gameStateChanger = GameStateChanger()
+# p1 = Player(20, 1, [], deckGenerator.getShuffledDeck(), [Card(1, 1, 1)])
+# p2 = Player(20, 1, [], deckGenerator.getShuffledDeck())
+#
+# initGameState = GameState(p1, p2, [], [])
+# newGameState = gameStateChanger.cloneGameState(initGameState)
+# gameStateChanger.attackPlayer(newGameState, 0, 0)
+# initGameState.firstDraw()
+# window.printGameState(newGameState)
+# window.printGameState(initGameState)
+# whichPlayerTour = 1
+
+# while initGameState.player1.life > 0 and initGameState.player2.life > 0:
+#     initGameState.drawCard(whichPlayerTour)
+#     if whichPlayerTour == 1:
+#
+#
+#     if whichPlayerTour == 2:
+#     whichPlayerTour = changePlayerTour(whichPlayerTour)
 
 
 # creatureCard = Card(1, 2, 1)
